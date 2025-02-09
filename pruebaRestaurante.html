@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante Azul</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-200 to-blue-400 text-gray-900">
+    <header class="text-center p-6 bg-blue-500 text-white shadow-lg">
+        <h1 class="text-5xl font-extrabold">Restaurante Azul</h1>
+        <p class="text-lg mt-2 italic">Sabores que enamoran</p>
+    </header>
+    
+    <main class="container mx-auto py-10 px-6">
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 fade-in">
+                <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-chef_114360-1894.jpg?w=740" alt="Plato delicioso" class="w-full h-auto object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold">Especialidad del Chef</h2>
+                    <p class="mt-2">Un plato único preparado con los mejores ingredientes.</p>
+                    <button onclick="openMenu()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-700">Ver menú</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 fade-in">
+                <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-camareros_114360-3114.jpg?w=740" alt="Ambiente acogedor" class="w-full h-auto object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold">Nuestro Ambiente</h2>
+                    <p class="mt-2">Un lugar acogedor para disfrutar de una experiencia inolvidable.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 fade-in">
+                <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-refresco-beber_114360-26892.jpg?w=740" alt="Bebidas exclusivas" class="w-full h-auto object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold">Bebidas Exclusivas</h2>
+                    <p class="mt-2">Descubre nuestra selección de cócteles y bebidas artesanales.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="text-center p-6 bg-blue-500 text-white mt-10">
+        <p>&copy; 2025 Restaurante Azul. Todos los derechos reservados.</p>
+    </footer>
+    
+    <div id="menuModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-3/4 max-w-lg">
+            <h2 class="text-2xl font-semibold">Menú del Restaurante</h2>
+            <p class="mt-4">Explora nuestra deliciosa variedad de platos y bebidas.</p>
+            <a href="menu.pdf" class="block mt-4 text-blue-500 hover:text-blue-700">Descargar Menú</a>
+            <button onclick="closeMenu()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700">Cerrar</button>
+        </div>
+    </div>
+    
+    <script>
+        function openMenu() {
+            document.getElementById('menuModal').classList.remove('hidden');
+        }
+        function closeMenu() {
+            document.getElementById('menuModal').classList.add('hidden');
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".fade-in").forEach((el, i) => {
+                setTimeout(() => el.classList.add("show"), i * 200);
+            });
+        });
+    </script>
+</body>
+</html>
