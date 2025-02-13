@@ -1,80 +1,489 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurante Azul</title>
+    <title>Restaurante</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .fade-in {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-        .fade-in.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body class="bg-gradient-to-r from-blue-200 to-blue-400 text-gray-900">
-    <header class="text-center p-6 bg-blue-500 text-white shadow-lg">
-        <h1 class="text-5xl font-extrabold">Restaurante Azul</h1>
-        <p class="text-lg mt-2 italic">Sabores que enamoran</p>
-    </header>
-    
-    <main class="container mx-auto py-10 px-6">
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 fade-in">
-                <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-chef_114360-1894.jpg?w=740" alt="Plato delicioso" class="w-full h-auto object-cover">
-                <div class="p-6">
-                    <h2 class="text-2xl font-semibold">Especialidad del Chef</h2>
-                    <p class="mt-2">Un plato único preparado con los mejores ingredientes.</p>
-                    <button onclick="openMenu()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-700">Ver menú</button>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 fade-in">
-                <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-camareros_114360-3114.jpg?w=740" alt="Ambiente acogedor" class="w-full h-auto object-cover">
-                <div class="p-6">
-                    <h2 class="text-2xl font-semibold">Nuestro Ambiente</h2>
-                    <p class="mt-2">Un lugar acogedor para disfrutar de una experiencia inolvidable.</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 fade-in">
-                <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-refresco-beber_114360-26892.jpg?w=740" alt="Bebidas exclusivas" class="w-full h-auto object-cover">
-                <div class="p-6">
-                    <h2 class="text-2xl font-semibold">Bebidas Exclusivas</h2>
-                    <p class="mt-2">Descubre nuestra selección de cócteles y bebidas artesanales.</p>
-                </div>
-            </div>
-        </div>
-    </main>
-    
-    <footer class="text-center p-6 bg-blue-500 text-white mt-10">
-        <p>&copy; 2025 Restaurante Azul. Todos los derechos reservados.</p>
-    </footer>
-    
-    <div id="menuModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-3/4 max-w-lg">
-            <h2 class="text-2xl font-semibold">Menú del Restaurante</h2>
-            <p class="mt-4">Explora nuestra deliciosa variedad de platos y bebidas.</p>
-            <a href="menu.pdf" class="block mt-4 text-blue-500 hover:text-blue-700">Descargar Menú</a>
-            <button onclick="closeMenu()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700">Cerrar</button>
-        </div>
-    </div>
-    
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/heroicons@1.0.6/dist/heroicons.min.js"></script>
     <script>
-        function openMenu() {
-            document.getElementById('menuModal').classList.remove('hidden');
-        }
-        function closeMenu() {
-            document.getElementById('menuModal').classList.add('hidden');
-        }
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".fade-in").forEach((el, i) => {
-                setTimeout(() => el.classList.add("show"), i * 200);
-            });
+        // Toggle para mostrar/ocultar el menú en pantallas pequeñas
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
+    <link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
+
+    <script type="module">
+        import KeenSlider from 'https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/+esm'
+
+        const keenSliderActive = document.getElementById('keen-slider-active')
+        const keenSliderCount = document.getElementById('keen-slider-count')
+
+        const keenSlider = new KeenSlider(
+            '#keen-slider',
+            {
+                loop: true,
+                defaultAnimation: {
+                    duration: 750,
+                },
+                slides: {
+                    origin: 'center',
+                    perView: 1,
+                    spacing: 16,
+                },
+                breakpoints: {
+                    '(min-width: 640px)': {
+                        slides: {
+                            origin: 'center',
+                            perView: 1.5,
+                            spacing: 16,
+                        },
+                    },
+                    '(min-width: 768px)': {
+                        slides: {
+                            origin: 'center',
+                            perView: 1.75,
+                            spacing: 16,
+                        },
+                    },
+                    '(min-width: 1024px)': {
+                        slides: {
+                            origin: 'center',
+                            perView: 3,
+                            spacing: 16,
+                        },
+                    },
+                },
+                created(slider) {
+                    slider.slides[slider.track.details.rel].classList.remove('opacity-40')
+
+                    keenSliderActive.innerText = slider.track.details.rel + 1
+                    keenSliderCount.innerText = slider.slides.length
+                },
+                slideChanged(slider) {
+                    slider.slides.forEach((slide) => slide.classList.add('opacity-40'))
+
+                    slider.slides[slider.track.details.rel].classList.remove('opacity-40')
+
+                    keenSliderActive.innerText = slider.track.details.rel + 1
+                },
+            },
+            []
+        )
+
+        const keenSliderPrevious = document.getElementById('keen-slider-previous')
+        const keenSliderNext = document.getElementById('keen-slider-next')
+
+        keenSliderPrevious.addEventListener('click', () => keenSlider.prev())
+        keenSliderNext.addEventListener('click', () => keenSlider.next())
+    </script>
+</head>
+
+<body class="bg-blue-50 font-sans">
+
+    <!-- Header Section -->
+    <header class="bg-blue-600 shadow-lg">
+        <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-2xl font-bold text-white">Restaurante</div>
+
+            <!-- Menú para pantallas grandes -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#menu" class="text-lg text-white hover:text-blue-200">Menú</a>
+                <a href="#contacto" class="text-lg text-white hover:text-blue-200">Contacto</a>
+                <a href="#ubicacion" class="text-lg text-white hover:text-blue-200">Ubicación</a>
+                <a href="#horario" class="text-lg text-white hover:text-blue-200">Horario</a>
+                <a href="#reseñas" class="text-lg text-white hover:text-blue-200">Reseñas</a>
+            </div>
+
+            <!-- Botón de menú para pantallas pequeñas -->
+            <div class="md:hidden">
+                <button id="menu-button" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Menú desplegable (para pantallas pequeñas) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-600 px-6 py-4 space-y-4">
+            <a href="#menu" class="text-lg text-white hover:text-blue-200 block">Menú</a>
+            <a href="#contacto" class="text-lg text-white hover:text-blue-200 block">Contacto</a>
+            <a href="#ubicacion" class="text-lg text-white hover:text-blue-200 block">Ubicación</a>
+            <a href="#reseñas" class="text-lg text-white hover:text-blue-200 block">Reseñas</a>
+        </div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="relative w-full h-screen bg-cover bg-center"
+        style="background-image: url('https://fincapicodelaguila.com/wp-content/uploads/Pico-de-Aguila-69.jpg');">
+        <div class="absolute inset-0 bg-blue-800 opacity-50"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+            <h1 class="text-5xl font-extrabold leading-tight">La Mejor Experiencia Gastronómica</h1>
+            <p class="mt-4 text-xl">Disfruta de nuestros deliciosos platos, preparados con los mejores ingredientes.</p>
+            <a href="#menu"
+                class="inline-block mt-6 px-8 py-3 bg-blue-700 text-white rounded-full text-lg hover:bg-blue-800 transition">Ver
+                Menú</a>
+        </div>
+    </section>
+
+    <!-- Menu Section-->
+    <section id="menu" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-semibold text-blue-800">Nuestros Servicios</h2>
+            <p class="mt-4 text-lg text-gray-600">Disfruta de una experiencia única con nuestros increíbles servicios.
+            </p>
+            <a href="#contacto" class="mt-6 text-lg text-blue-600 hover:underline">Contáctanos para más información</a>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+                    <div class="flex justify-center items-center mb-4">
+                        <!-- Icono de Terraza -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 19l-2-2m0 0l-2 2m2-2V9M5 5h14m-7 0v4m0 4V5" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-4 text-blue-800">Terraza al Aire Libre</h3>
+                    <p class="mt-2 text-gray-600">Disfruta de tu comida mientras te relajas en nuestra amplia terraza.
+                    </p>
+                </div>
+                <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+                    <div class="flex justify-center items-center mb-4">
+                        <!-- Icono de Ambiente -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 4a3 3 0 013-3h12a3 3 0 013 3v16a3 3 0 01-3 3H6a3 3 0 01-3-3V4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-4 text-blue-800">Ambiente Acogedor</h3>
+                    <p class="mt-2 text-gray-600">Un espacio moderno y cómodo para que disfrutes con amigos y familia.
+                    </p>
+                </div>
+                <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+                    <div class="flex justify-center items-center mb-4">
+                        <!-- Icono de Comida -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 4h18M12 4v16m-6 2h12" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-4 text-blue-800">Comida de Calidad</h3>
+                    <p class="mt-2 text-gray-600">Platos preparados con los mejores ingredientes, ¡para chuparse los
+                        dedos!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 bg-blue-100">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-semibold text-blue-800">Contacto</h2>
+            <p class="mt-4 text-lg text-gray-600">¿Tienes alguna pregunta o quieres hacer una reserva?</p>
+            <div class="mt-6 space-y-4">
+                <div class="flex justify-center items-center space-x-2">
+                    <i class="fas fa-phone-alt text-2xl text-blue-600"></i>
+                    <p class="text-lg text-gray-700">📞 Teléfono: 123-456-789</p>
+                </div>
+                <div class="flex justify-center items-center space-x-2">
+                    <i class="fas fa-envelope text-2xl text-blue-600"></i>
+                    <p class="text-lg text-gray-700">📧 Correo: contacto@restaurante.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="ubicacion" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-semibold text-blue-800">Ubicación</h2>
+            <p class="mt-4 text-lg text-gray-600">Visítanos y disfruta de una comida única.</p>
+            <div class="mt-6">
+                <!-- Mapa de Google Maps embebido -->
+                <iframe class="mx-auto" width="100%" height="400"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1894.885214482164!2d-0.9563389!3d38.0910052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd63991d2b3d7413%3A0x1e6c1cab466e6c4c!2sCastillo+de+Orihuela!5e0!3m2!1ses!2ses!4v1674752971175!5m2!1ses!2ses"
+                    allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="horario" class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Horario de apertura</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+                <div class="flex flex-col items-center space-y-4">
+                    <i class="fas fa-sun text-yellow-500 text-4xl"></i>
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Lunes a Viernes</h3>
+                        <p class="text-gray-600">10:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center space-y-4">
+                    <i class="fas fa-sun text-yellow-500 text-4xl"></i>
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Sábado</h3>
+                        <p class="text-gray-600">11:00 AM - 12:00 AM</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center space-y-4">
+                    <i class="fas fa-sun text-yellow-500 text-4xl"></i>
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Domingo</h3>
+                        <p class="text-gray-600">Cerrado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white">
+        <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+            <h2 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                Valoraciones de los clientes
+            </h2>
+
+            <div class="mt-8">
+                <div id="keen-slider" class="keen-slider">
+                    <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
+                        <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-gray-700">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+                                consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius
+                                accusamus error officiis atque voluptates magnam!
+                            </p>
+                        </blockquote>
+                    </div>
+
+                    <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
+                        <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-gray-700">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+                                consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius
+                                accusamus error officiis atque voluptates magnam!
+                            </p>
+                        </blockquote>
+                    </div>
+
+                    <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
+                        <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-gray-700">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+                                consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius
+                                accusamus error officiis atque voluptates magnam!
+                            </p>
+                        </blockquote>
+                    </div>
+
+                    <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
+                        <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-gray-700">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+                                consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius
+                                accusamus error officiis atque voluptates magnam!
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex items-center justify-center gap-4">
+                    <button aria-label="Previous slide" id="keen-slider-previous"
+                        class="text-gray-600 transition-colors hover:text-gray-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+
+                    <p class="w-16 text-center text-sm text-gray-700">
+                        <span id="keen-slider-active"></span>
+                        /
+                        <span id="keen-slider-count"></span>
+                    </p>
+
+                    <button aria-label="Next slide" id="keen-slider-next"
+                        class="text-gray-600 transition-colors hover:text-gray-900">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="py-8 bg-blue-600 text-white text-center">
+        <p>&copy; 2025 Restaurante. Todos los derechos reservados.</p>
+    </footer>
+
 </body>
+
 </html>
